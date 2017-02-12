@@ -3,21 +3,25 @@
 # Build PHP
 # PHP 7.0
 
+currDir="$( cd "$( dirname "$0" )" && pwd )"
+
+
 if [ ! -d "$1" ]; then
     echo "Usage:"
     echo "$0 <php-src-dir>"
     echo "<php-src-dir> is a PHP source directory"
     exit 1
 fi
+src="$1"
 
-$out = out.txt
+out=out.txt
 if [ -f $out ]; then
     rm $out
 fi
 touch $out
 
-src="$1"
-#pushd $src
+
+
 
 ## CORE
 
@@ -91,13 +95,18 @@ extension_conf="\
     --with-xsl \
     --with-zlib \
 "
-
-$src/configure $core_conf $extension_conf | tee > $out
+pushd $src
+out=${currDir}/${out}
+echo "-------- configure" | tee --append $out
+./configure $core_conf $extension_conf | tee --append $out
 
 if [ $? = 0 ]; then
-    make -j `cat /proc/cpuinfo | grep processor | wc -l`  | tee > $out
+    echo "-------- make" | tee --append $out
+    make -j `cat /proc/cpuinfo | grep processor | wc -l` | tee --append $out
 fi
 if [ $? = 0 ]; then
-    make -j `cat /proc/cpuinfo | grep processor | wc -l` test | tee > $out
+    echo "-------- make test" | tee --append $out
+    make -j `cat /proc/cpuinfo | grep processor | wc -l` test | tee --append $out
 fi
 
+popd
