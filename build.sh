@@ -58,6 +58,8 @@ core_conf="\
 #    --with-pcre-regex= \
 #    --with-qdbm=/usr       Quick Database Manager is a library of routines for managing a database
 #    --with-sqlite3 \       SQLite3 support for PDO
+#    --with-pdo-oci=instantclient,/usr,12.1 \
+#    --with-pdo-sqlite= \
 #    --with-qdbm=/usr \
 
 extension_conf="\
@@ -86,9 +88,7 @@ extension_conf="\
     --with-libxml-dir=/usr \
     --with-mcrypt \
     --with-openssl \
-    --with-pdo-oci=instantclient,/usr,12.1 \
     --with-pdo-mysql \
-    --with-pdo-sqlite= \
     --with-pear \
     --with-readline \
     --with-tidy=/usr \
@@ -99,11 +99,10 @@ pushd $src
 out=${currDir}/${out}
 echo "-------- configure" | tee --append $out
 ./configure $core_conf $extension_conf | tee --append $out
-
-if [ $? = 0 ]; then
-    echo "-------- make" | tee --append $out
-    make -j `cat /proc/cpuinfo | grep processor | wc -l` | tee --append $out
-fi
+echo 'Check the output for errors!'
+read -p 'Press [Enter] key to continue...'
+echo "-------- make" | tee --append $out
+make -j `cat /proc/cpuinfo | grep processor | wc -l` | tee --append $out
 if [ $? = 0 ]; then
     echo "-------- make test" | tee --append $out
     make -j `cat /proc/cpuinfo | grep processor | wc -l` test | tee --append $out
