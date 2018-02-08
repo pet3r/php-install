@@ -1,13 +1,14 @@
 #!/bin/sh
 
 # Install build requirements
-# PHP 7.0
+# PHP 7.2
 
 if [ `whoami` != root ]; then
     echo 'Please run as root!'
     exit
 fi
 
+#    autoconf \             Xdebug
 #    libbz2-dev \           BZip2
 #    libc-client2007e-dev \ IMAP
 #    libqdbm-dev \          Berkeley Database Libraries
@@ -20,6 +21,7 @@ fi
 
 apt-get update
 apt-get install --yes \
+    autoconf \
     libbz2-dev \
     libdb-dev \
     libc-client2007e-dev \
