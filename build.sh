@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Build PHP
-# PHP 7.0
+# PHP 7.2
 
 currDir="$( cd "$( dirname "$0" )" && pwd )"
 
@@ -34,8 +34,8 @@ touch $out
 
 core_conf="\
      --disable-cgi \
-     --with-config-file-path=/etc/php/7.0/cli \
-     --with-config-file-scan-dir=/etc/php/7.0/cli/conf.d \
+     --with-config-file-path=/etc/php/7.2/cli \
+     --with-config-file-scan-dir=/etc/php/7.2/cli/conf.d \
      --disable-short-tags \
 "
 
@@ -78,7 +78,7 @@ extension_conf="\
     --enable-sockets \
     --enable-zip \
     --with-bz2=/usr \
-    --with-curl=/usr/bin/curl \
+    --with-curl \
     --with-gettext \
     --with-iconv-dir=/usr \
     --with-icu-dir=/usr \
@@ -86,7 +86,6 @@ extension_conf="\
     --with-kerberos \
     --with-imap-ssl \
     --with-libxml-dir=/usr \
-    --with-mcrypt \
     --with-openssl \
     --with-pdo-mysql \
     --with-pear \
