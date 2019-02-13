@@ -31,9 +31,11 @@ apt-get install --yes \
     libmcrypt-dev \
     libqdbm-dev \
     libssl-dev \
+    libsodium-dev \
     libtidy-dev \
     libxml2-dev \
     libmysqlclient-dev \
     libxslt-dev \
     libreadline-dev \
+    libzip-dev \
     sqlite3

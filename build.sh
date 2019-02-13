@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Build PHP
-# PHP 7.2
+# PHP 7.3
 
 currDir="$( cd "$( dirname "$0" )" && pwd )"
 
@@ -20,8 +20,8 @@ if [ -f $out ]; then
 fi
 touch $out
 
-
-
+# To get the available options run:
+# <PHP_SRC_DIR>/configure --help
 
 ## CORE
 
@@ -34,8 +34,8 @@ touch $out
 
 core_conf="\
      --disable-cgi \
-     --with-config-file-path=/etc/php/7.2/cli \
-     --with-config-file-scan-dir=/etc/php/7.2/cli/conf.d \
+     --with-config-file-path=/etc/php/7.3/cli \
+     --with-config-file-scan-dir=/etc/php/7.3/cli/conf.d \
      --disable-short-tags \
 "
 
@@ -90,6 +90,7 @@ extension_conf="\
     --with-pdo-mysql \
     --with-pear \
     --with-readline \
+    --with-sodium \
     --with-tidy=/usr \
     --with-xsl \
     --with-zlib \
@@ -98,7 +99,7 @@ pushd $src
 out=${currDir}/${out}
 echo "-------- configure" | tee --append $out
 ./configure $core_conf $extension_conf | tee --append $out
-echo 'Check the output for errors!'
+echo '-------- Check the output for errors!'
 read -p 'Press [Enter] key to continue...'
 echo "-------- make" | tee --append $out
 make -j `cat /proc/cpuinfo | grep processor | wc -l` | tee --append $out
