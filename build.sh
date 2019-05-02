@@ -81,7 +81,6 @@ extension_conf="\
     --with-curl \
     --with-gettext \
     --with-iconv-dir=/usr \
-    --with-icu-dir=/usr \
     --with-imap \
     --with-kerberos \
     --with-imap-ssl \
